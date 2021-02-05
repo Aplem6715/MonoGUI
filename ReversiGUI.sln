@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversiGUI", "ReversiGUI\ReversiGUI.csproj", "{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_exe|Any CPU = Debug_exe|Any CPU
+		Debug_exe|x64 = Debug_exe|x64
+		Debug_exe|x86 = Debug_exe|x86
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release_AVX_exe|Any CPU = Release_AVX_exe|Any CPU
+		Release_AVX_exe|x64 = Release_AVX_exe|x64
+		Release_AVX_exe|x86 = Release_AVX_exe|x86
+		Release_AVX|Any CPU = Release_AVX|Any CPU
+		Release_AVX|x64 = Release_AVX|x64
+		Release_AVX|x86 = Release_AVX|x86
+		Release_AVX2_exe|Any CPU = Release_AVX2_exe|Any CPU
+		Release_AVX2_exe|x64 = Release_AVX2_exe|x64
+		Release_AVX2_exe|x86 = Release_AVX2_exe|x86
+		Release_AVX2|Any CPU = Release_AVX2|Any CPU
+		Release_AVX2|x64 = Release_AVX2|x64
+		Release_AVX2|x86 = Release_AVX2|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Debug_exe|Any CPU.ActiveCfg = Debug|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Debug_exe|Any CPU.Build.0 = Debug|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Debug_exe|x64.ActiveCfg = Debug|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Debug_exe|x64.Build.0 = Debug|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Debug_exe|x86.ActiveCfg = Debug|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Debug|x64.ActiveCfg = Debug|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Debug|x64.Build.0 = Debug|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Debug|x86.ActiveCfg = Debug|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX_exe|Any CPU.ActiveCfg = Release_AVX2|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX_exe|Any CPU.Build.0 = Release_AVX2|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX_exe|x64.ActiveCfg = Release_AVX2|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX_exe|x64.Build.0 = Release_AVX2|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX_exe|x86.ActiveCfg = Release_AVX2|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX_exe|x86.Build.0 = Release_AVX2|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX|Any CPU.ActiveCfg = Release_AVX|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX|Any CPU.Build.0 = Release_AVX|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX|x64.ActiveCfg = Release_AVX|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX|x64.Build.0 = Release_AVX|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX|x86.ActiveCfg = Release_AVX|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX|x86.Build.0 = Release_AVX|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX2_exe|Any CPU.ActiveCfg = Release_AVX2|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX2_exe|Any CPU.Build.0 = Release_AVX2|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX2_exe|x64.ActiveCfg = Release_AVX2|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX2_exe|x64.Build.0 = Release_AVX2|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX2_exe|x86.ActiveCfg = Release_AVX2|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX2_exe|x86.Build.0 = Release_AVX2|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX2|Any CPU.ActiveCfg = Release_AVX2|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX2|Any CPU.Build.0 = Release_AVX2|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX2|x64.ActiveCfg = Release_AVX2|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX2|x64.Build.0 = Release_AVX2|x64
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX2|x86.ActiveCfg = Release_AVX2|Any CPU
+		{A27D7D41-78AF-4423-9755-4A6CCCDAFB96}.Release_AVX2|x86.Build.0 = Release_AVX2|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE1915A2-0F92-4F6A-B8C2-D0629261C4F6}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,263 @@
+﻿<Controls:MetroWindow x:Class="ReversiGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:ReversiGUI"
+        xmlns:game="clr-namespace:ReversiGUI.Games"
+        xmlns:gamemanager="clr-namespace:ReversiGUI.Games"
+        mc:Ignorable="d"
+        Title="Reversi GUI"
+        ResizeMode="CanMinimize" Width="860" Height="520">
+
+    <Window.Resources>
+        <ControlTemplate x:Key="ButtonControlTemplate1" TargetType="{x:Type Button}">
+            <Border x:Name="border" Background="#FF333333">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <Storyboard>
+                                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border">
+                                    <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#00000000">
+                                        <EasingColorKeyFrame.EasingFunction>
+                                            <CubicEase EasingMode="EaseInOut"/>
+                                        </EasingColorKeyFrame.EasingFunction>
+                                    </EasingColorKeyFrame>
+                                </ColorAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="MouseOver">
+                            <Storyboard>
+                                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border">
+                                    <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#4C000000">
+                                        <EasingColorKeyFrame.EasingFunction>
+                                            <CubicEase EasingMode="EaseInOut"/>
+                                        </EasingColorKeyFrame.EasingFunction>
+                                    </EasingColorKeyFrame>
+                                </ColorAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <Storyboard>
+                                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border">
+                                    <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#7F000000">
+                                        <EasingColorKeyFrame.EasingFunction>
+                                            <CubicEase EasingMode="EaseInOut"/>
+                                        </EasingColorKeyFrame.EasingFunction>
+                                    </EasingColorKeyFrame>
+                                </ColorAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Disabled"/>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <ContentPresenter TextBlock.Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Click="ShowSettings">
+                <StackPanel Orientation="Vertical">
+                    <Rectangle Width="15" Height="15">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+    <!--設定画面のフライアウト-->
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout x:Name="SettingFlyout"
+                             Width="275"
+                             Header="Settings"
+                             Position="Right"
+                             IsPinned="False"
+                             IsModal="True">
+                <StackPanel Name="Settings"
+                            Margin="10,5,10,0"
+                            HorizontalAlignment="Center"
+                            Grid.IsSharedSizeScope="True">
+
+                    <Grid Margin="0,2,0,0" HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" SharedSizeGroup="labels"/>
+                            <ColumnDefinition Width="130" SharedSizeGroup="labels2"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="難易度:" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Controls:SplitButton x:Name="DifficultySplit" 
+                                Margin="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Left"
+                                VerticalContentAlignment="Center" 
+                                SelectedIndex="1" Grid.Column="1" Width="120" IsMouseCaptureWithinChanged="DifficultySplit_IsMouseCaptureWithinChanged">
+
+                            <Controls:SplitButton.Icon>
+                                <iconPacks:PackIconModern Margin="6" Kind="Alien" />
+                            </Controls:SplitButton.Icon>
+                            <Controls:SplitButton.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock HorizontalAlignment="Left" 
+                                    TextWrapping="Wrap" 
+                                    Text="{Binding Text}" 
+                                    VerticalAlignment="Top" FontSize="20"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </Controls:SplitButton.ItemTemplate>
+                        </Controls:SplitButton>
+
+                    </Grid>
+                    <Grid Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="中盤読み手数" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock Text="終盤読み手数" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Controls:NumericUpDown x:Name="MidDepthInput" Maximum="16" Minimum="2" Value="12" Interval="2" Focusable="False"/>
+                        <Controls:NumericUpDown x:Name="EndDepthInput" Maximum="24" Minimum="1" Value="20" Grid.Column="1"/>
+                    </Grid>
+                    <Grid Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="labels" />
+                            <ColumnDefinition SharedSizeGroup="labels2"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="プレイヤーの色:" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Controls:ToggleSwitch Name="ColorToggle"
+                                           OnLabel="黒"
+                                           OffLabel="白"
+                                           IsChecked="True" 
+                                           Margin="0" 
+                                           Width="Auto" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
+                    </Grid>
+                    <Grid Name="MobGrid" Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="labels" />
+                            <ColumnDefinition SharedSizeGroup="labels2"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="着手サポート:" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Controls:ToggleSwitch OnLabel="オン"
+                                           OffLabel="オフ"
+                                           Margin="0"
+                                           Width="Auto" Grid.Column="1" 
+                                           VerticalContentAlignment="Center" HorizontalAlignment="Right" 
+                                           HorizontalContentAlignment="Right" IsCheckedChanged="ToggleSwitch_IsCheckedChanged" IsChecked="True"/>
+                    </Grid>
+                    <Grid Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="labels" />
+                            <ColumnDefinition SharedSizeGroup="labels2"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="CPU情報表示:" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Controls:ToggleSwitch Name="StatsShowToggle"
+                                           OnLabel="オン"
+                                           OffLabel="オフ"
+                                           IsChecked="True" 
+                                           Margin="0" 
+                                           Width="Auto" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
+                    </Grid>
+                    <Grid Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="labels"/>
+                            <ColumnDefinition SharedSizeGroup="labels2"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="PVP(人vs人モード):" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Controls:ToggleSwitch Name="PVPToggle"
+                                           OnLabel="オン"
+                                           OffLabel="オフ"
+                                           IsChecked="False" 
+                                           Margin="0" 
+                                           Width="Auto" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
+                    </Grid>
+                    <Button Content="credit" VerticalContentAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Bottom" Width="200" Click="Button_Credit" Height="20"/>
+                </StackPanel>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+
+    <Grid>
+
+        <RichTextBox x:Name="MessageBlock" IsReadOnly="True" HorizontalAlignment="Left" Height="247" Margin="425,35,0,0" VerticalAlignment="Top" Width="407" Foreground="White" VerticalScrollBarVisibility="Auto" FontSize="16" Background="#FF0288A6"/>
+        <Label x:Name="BlackText" Content="黒:16" HorizontalAlignment="Left" Margin="104,436,0,0" VerticalAlignment="Top" FontSize="26.667"/>
+        <Label x:Name="WhiteText" Content="白:48" HorizontalAlignment="Left" Margin="234,436,0,0" VerticalAlignment="Top" FontSize="26.667"/>
+        <Grid x:Name="BoardGrid" HorizontalAlignment="Left" Height="400" Margin="10,25,0,0" VerticalAlignment="Top" Width="400">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image Stretch="Fill" Source="Board.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="320" Height="320" Grid.RowSpan="8" Grid.ColumnSpan="8" Grid.Column="1" Grid.Row="1"/>
+            <Rectangle x:Name="PutCursor" Width="25" Height="25" Panel.ZIndex="2" Fill="#FF00DCFF" IsHitTestVisible="False">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_inbox_in}" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Controls:ProgressRing x:Name="ComProgressRing" Grid.Row="9" Width="30" Height="30" Grid.Column="9"/>
+        </Grid>
+        <Button x:Name="button_start" Content="START" HorizontalAlignment="Left" Margin="525,396,0,0" VerticalAlignment="Top" Width="200" Height="60" FontSize="36" FontWeight="Bold" Click="Button_start_Click"/>
+
+        <Button Click="ShowSettings" 
+                Width="40" Height="40" 
+                Margin="0,0,10,10" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom" Foreground="White">
+            <StackPanel Orientation="Vertical">
+                <Rectangle Width="25" Height="25">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </StackPanel>
+        </Button>
+
+        <Button Width="60" Height="60" 
+                Margin="0,0,369,122" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom" Click="Button_Undo" Foreground="White">
+            <StackPanel Orientation="Vertical">
+                <Rectangle Width="20" Height="20">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_undo}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <TextBlock Text="Undo:戻す" />
+            </StackPanel>
+        </Button>
+
+    </Grid>
+
+</Controls:MetroWindow>
