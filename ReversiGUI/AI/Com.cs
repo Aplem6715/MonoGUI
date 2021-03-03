@@ -16,12 +16,14 @@ namespace ReversiGUI.AI
         private extern static int DllSearch(out double value);
 
         [DllImport("Resources\\MonoReversi.dll", CallingConvention = CallingConvention.Cdecl)]
-        private extern static void DllConfigureSearch(int mid, int end);
+        private extern static void DllConfigureSearch(int aiColor, int mid, int end, int oneMoveTime, [MarshalAs(UnmanagedType.Bool)]bool useTimer, [MarshalAs(UnmanagedType.Bool)] bool useMPC, [MarshalAs(UnmanagedType.Bool)]bool enablePreSearch);
 
         [DllImport("Resources\\MonoReversi.dll", CallingConvention = CallingConvention.Cdecl)]
         private extern static void DllShowMsg();
 
         private bool IsParamSet=false;
+
+        private int color;
 
         public Com()
         {
@@ -31,9 +33,10 @@ namespace ReversiGUI.AI
         {
         }
 
-        public void SetParam(int mid, int end, int win , int shallowDepth, int useHash, int midVMode, int sMode)
+        public void SetParam(int color, int mid, int end, int win , int shallowDepth, int useHash, int time, bool useTimer, bool useMPC, bool enablePreSearch)
         {
-            DllConfigureSearch(mid, end);
+            this.color = color;
+            DllConfigureSearch(color, mid, end, time, useTimer, useMPC, enablePreSearch);
             IsParamSet = true;
         }
 

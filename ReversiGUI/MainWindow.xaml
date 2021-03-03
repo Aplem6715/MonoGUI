@@ -76,7 +76,7 @@
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
             <Controls:Flyout x:Name="SettingFlyout"
-                             Width="275"
+                             Width="320"
                              Header="Settings"
                              Position="Right"
                              IsPinned="False"
@@ -88,8 +88,8 @@
 
                     <Grid Margin="0,2,0,0" HorizontalAlignment="Right">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120" SharedSizeGroup="labels"/>
-                            <ColumnDefinition Width="130" SharedSizeGroup="labels2"/>
+                            <ColumnDefinition Width="140" SharedSizeGroup="labels"/>
+                            <ColumnDefinition Width="150" SharedSizeGroup="labels2"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="難易度:" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
                         <Controls:SplitButton x:Name="DifficultySplit" 
@@ -100,9 +100,11 @@
                                 VerticalContentAlignment="Center" 
                                 SelectedIndex="1" Grid.Column="1" Width="120" IsMouseCaptureWithinChanged="DifficultySplit_IsMouseCaptureWithinChanged">
 
+                            <!--
                             <Controls:SplitButton.Icon>
                                 <iconPacks:PackIconModern Margin="6" Kind="Alien" />
                             </Controls:SplitButton.Icon>
+                            -->
                             <Controls:SplitButton.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -116,7 +118,9 @@
                         </Controls:SplitButton>
 
                     </Grid>
-                    <Grid Margin="0,5,0,0">
+                    
+                    
+                    <Grid Margin="0,3,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -129,9 +133,33 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Controls:NumericUpDown x:Name="MidDepthInput" Maximum="16" Minimum="2" Value="12" Interval="2" Focusable="False"/>
-                        <Controls:NumericUpDown x:Name="EndDepthInput" Maximum="24" Minimum="1" Value="20" Grid.Column="1"/>
+                        <Controls:NumericUpDown x:Name="MidDepthInput" Maximum="20" Minimum="2" Value="12" Interval="1" Focusable="False"/>
+                        <Controls:NumericUpDown x:Name="EndDepthInput" Maximum="26" Minimum="2" Value="20" Grid.Column="1"/>
                     </Grid>
+
+
+                    <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition SharedSizeGroup="labels"/>
+                        <ColumnDefinition SharedSizeGroup="labels2"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="探索の時間制限:" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <Controls:ToggleSwitch Name="TimerToggle"
+                                           OnLabel="オン"
+                                           OffLabel="オフ"
+                                           IsChecked="False" 
+                                           Margin="0" 
+                                           Width="Auto" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="時間(秒):" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Controls:NumericUpDown x:Name="TimerInput" Maximum="60" Minimum="1" Value="2" Grid.Column="1"/>
+                    </Grid>
+                        
                     <Grid Margin="0,20,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition SharedSizeGroup="labels" />
@@ -145,7 +173,9 @@
                                            Margin="0" 
                                            Width="Auto" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
                     </Grid>
-                    <Grid Name="MobGrid" Margin="0,5,0,0">
+                    
+                    
+                    <Grid Name="MobGrid" Margin="0,3,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition SharedSizeGroup="labels" />
                             <ColumnDefinition SharedSizeGroup="labels2"/>
@@ -158,20 +188,9 @@
                                            VerticalContentAlignment="Center" HorizontalAlignment="Right" 
                                            HorizontalContentAlignment="Right" IsCheckedChanged="ToggleSwitch_IsCheckedChanged" IsChecked="True"/>
                     </Grid>
-                    <Grid Margin="0,5,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="labels" />
-                            <ColumnDefinition SharedSizeGroup="labels2"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="CPU情報表示:" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
-                        <Controls:ToggleSwitch Name="StatsShowToggle"
-                                           OnLabel="オン"
-                                           OffLabel="オフ"
-                                           IsChecked="True" 
-                                           Margin="0" 
-                                           Width="Auto" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
-                    </Grid>
-                    <Grid Margin="0,5,0,0">
+                    
+                    
+                    <Grid Margin="0,3,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition SharedSizeGroup="labels"/>
                             <ColumnDefinition SharedSizeGroup="labels2"/>
@@ -184,7 +203,37 @@
                                            Margin="0" 
                                            Width="Auto" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
                     </Grid>
-                    <Button Content="credit" VerticalContentAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Bottom" Width="200" Click="Button_Credit" Height="20"/>
+                    
+                    
+                    <Grid Margin="0,3,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="labels"/>
+                            <ColumnDefinition SharedSizeGroup="labels2"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="非同期思考:" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Controls:ToggleSwitch Name="PreSearchToggle"
+                                           OnLabel="オン"
+                                           OffLabel="オフ"
+                                           IsChecked="True" 
+                                           Margin="0" 
+                                           Width="Auto" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
+                    </Grid>
+                    
+                    
+                    <Grid Margin="0,3,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="labels"/>
+                            <ColumnDefinition SharedSizeGroup="labels2"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="MPC設定(OFF推奨):" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Controls:ToggleSwitch Name="MPCToggle"
+                                           OnLabel="オン"
+                                           OffLabel="オフ"
+                                           IsChecked="False" 
+                                           Margin="0" 
+                                           Width="Auto" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
+                    </Grid>
+                    <Button Content="credit" VerticalContentAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Bottom" Width="200" Click="Button_Credit" Height="20"/>
                 </StackPanel>
             </Controls:Flyout>
         </Controls:FlyoutsControl>

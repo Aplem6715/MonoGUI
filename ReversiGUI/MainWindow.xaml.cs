@@ -63,12 +63,12 @@ namespace ReversiGUI
                 Normal,
                 Hard,
                 Pro,
-                Custom
+                Custom,
             };
 
             InitializeComponent();
             DifficultySplit.ItemsSource = SplitList;
-            gManager = new GameManager(BoardGrid, (ControlTemplate)this.Resources["ButtonControlTemplate1"], MessageBlock, WhiteText, BlackText, ComProgressRing, PutCursor, ColorToggle, StatsShowToggle);
+            gManager = new GameManager(BoardGrid, (ControlTemplate)this.Resources["ButtonControlTemplate1"], MessageBlock, WhiteText, BlackText, ComProgressRing, PutCursor, ColorToggle, TimerToggle, MPCToggle, PreSearchToggle);
 
             MidDepthInput.Value = diffs[DifficultySplit.SelectedIndex].mid;
             EndDepthInput.Value = diffs[DifficultySplit.SelectedIndex].end;
@@ -79,7 +79,7 @@ namespace ReversiGUI
         
         private async void Button_Credit(object sender, RoutedEventArgs e)
         {
-            await this.ShowMessageAsync("Reversi GUI", "\n佐藤 大地\n@2017 Ec4 Reversi Tournament");
+            await this.ShowMessageAsync("Reversi GUI", "\nACEM2 佐藤 大地 / Daichi Sato\n\nCopyright (c) 2021 Daichi Sato");
         }
 
         private void ShowSettings(object sender, RoutedEventArgs e)
@@ -101,17 +101,17 @@ namespace ReversiGUI
         {
             if ((bool)PVPToggle.IsChecked)
             {
-                gManager.Start(GAMEMODE.PVP, diffs[DifficultySplit.SelectedIndex].mid, diffs[DifficultySplit.SelectedIndex].end, (DIFFICULTY)DifficultySplit.SelectedIndex);
+                gManager.Start(GAMEMODE.PVP, diffs[DifficultySplit.SelectedIndex].mid, diffs[DifficultySplit.SelectedIndex].end, (DIFFICULTY)DifficultySplit.SelectedIndex, (int)TimerInput.Value);
             }
             else
             {
                 if ((DIFFICULTY)DifficultySplit.SelectedIndex == DIFFICULTY.CUSTOM)
                 {
-                    gManager.Start(GAMEMODE.PVC, (int)MidDepthInput.Value, (int)EndDepthInput.Value, (DIFFICULTY)DifficultySplit.SelectedIndex);
+                    gManager.Start(GAMEMODE.PVC, (int)MidDepthInput.Value, (int)EndDepthInput.Value, (DIFFICULTY)DifficultySplit.SelectedIndex, (int)TimerInput.Value);
                 }
                 else
                 {
-                    gManager.Start(GAMEMODE.PVC, diffs[DifficultySplit.SelectedIndex].mid, diffs[DifficultySplit.SelectedIndex].end, (DIFFICULTY)DifficultySplit.SelectedIndex);
+                    gManager.Start(GAMEMODE.PVC, diffs[DifficultySplit.SelectedIndex].mid, diffs[DifficultySplit.SelectedIndex].end, (DIFFICULTY)DifficultySplit.SelectedIndex, (int)TimerInput.Value);
                 }
             }
         }

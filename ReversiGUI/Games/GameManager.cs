@@ -56,57 +56,61 @@ namespace ReversiGUI.Games
         private ScrollingLog LogWindow;
         private ProgressRing comProgRing;
         private Rectangle putCursor;
+        private ToggleSwitch timerSwitch;
         private ToggleSwitch humanColorSwitch;
-        private ToggleSwitch comInfoSwitch;
+        private ToggleSwitch MPCSwitch;
+        private ToggleSwitch PreSearchSwitch;
         private bool canInput = false;
         private int color;
         private int cpuColor = Const.WHITE;
 
         public bool showMob = true;
 
-        public GameManager(Grid grid, ControlTemplate resource, RichTextBox textBox, Label wText, Label bText, ProgressRing ring, Rectangle cursor, ToggleSwitch humanColorToggle, ToggleSwitch comInfo)
+        public GameManager(Grid grid, ControlTemplate resource, RichTextBox textBox, Label wText, Label bText, ProgressRing ring, Rectangle cursor, ToggleSwitch humanColorToggle, ToggleSwitch timerSwitch, ToggleSwitch MPCSwitch, ToggleSwitch preSearchSwitch)
         {
             //ログは最優先で生成
-            LogWindow = new ScrollingLog(textBox);
-            MainBoard = new Board(grid, resource, PosInput, wText, bText);
-            com = new Com();
-            comProgRing = ring;
-            comProgRing.IsActive = false;
-            putCursor = cursor;
-            humanColorSwitch = humanColorToggle;
-            comInfoSwitch = comInfo;
+            this.LogWindow = new ScrollingLog(textBox);
+            this.MainBoard = new Board(grid, resource, PosInput, wText, bText);
+            this.com = new Com();
+            this.comProgRing = ring;
+            this.comProgRing.IsActive = false;
+            this.putCursor = cursor;
+            this.humanColorSwitch = humanColorToggle;
+            this.timerSwitch = timerSwitch;
+            this.MPCSwitch = MPCSwitch;
+            this.PreSearchSwitch = preSearchSwitch;
         }
         
-        public void Start(GAMEMODE StartMode, int mid, int end, DIFFICULTY difficulty = DIFFICULTY.NORMAL)
+        public void Start(GAMEMODE StartMode, int mid, int end, DIFFICULTY difficulty = DIFFICULTY.NORMAL, int time=2)
         {
             Gamemode = StartMode;
             LogWindow.Clear();
             LogWindow.LogAlart("Game Start:モード"+Gamemode.ToString()+"で新しいマッチを開始します");
-            if(Gamemode == GAMEMODE.PVC)
+            ResetGame();
+            if (Gamemode == GAMEMODE.PVC)
             {
                 LogWindow.LogWarning("難易度は"+difficulty.ToString()+"です(歯車アイコンから変更可能)");
                 LogWindow.LogWarning("中盤先読み:"+mid+" 読み切り:"+end);
                 switch (difficulty)
                 {
                     case DIFFICULTY.EASY:
-                        com.SetParam(mid, end, 4, 2, 1, (int)COM_VALUE_MODE.V_POSITION, (int)Com_Search_Mode.S_ALPHABETA);
+                        com.SetParam(cpuColor, mid, end, 4, 2, 1, time,  (bool)timerSwitch.IsChecked, (bool)MPCSwitch.IsChecked, (bool)PreSearchSwitch.IsChecked);
                         break;
                     case DIFFICULTY.NORMAL:
-                        com.SetParam(mid, end, 8, 2, 1, (int)COM_VALUE_MODE.V_POSITION, (int)Com_Search_Mode.S_IDDFS);
+                        com.SetParam(cpuColor, mid, end, 8, 2, 1, time,  (bool)timerSwitch.IsChecked, (bool)MPCSwitch.IsChecked, (bool)PreSearchSwitch.IsChecked);
                         break;
                     case DIFFICULTY.HARD:
-                        com.SetParam(mid, end, 14, 2, 1, (int)COM_VALUE_MODE.V_PATTERNLINER, (int)Com_Search_Mode.S_IDDFS);
+                        com.SetParam(cpuColor, mid, end, 14, 2, 1, time, (bool)timerSwitch.IsChecked, (bool)MPCSwitch.IsChecked, (bool)PreSearchSwitch.IsChecked);
                         break;
                     case DIFFICULTY.PRO:
-                        com.SetParam(mid, end, 0, 4, 1, (int)COM_VALUE_MODE.V_PATTERNLINER, (int)Com_Search_Mode.S_IDDFS);
+                        com.SetParam(cpuColor, mid, end, 0, 4, 1, time,  (bool)timerSwitch.IsChecked, (bool)MPCSwitch.IsChecked, (bool)PreSearchSwitch.IsChecked);
                         break;
                     case DIFFICULTY.CUSTOM:
-                        com.SetParam(mid, end, 0, 4, 1, (int)COM_VALUE_MODE.V_PATTERNLINER, (int)Com_Search_Mode.S_IDDFS);
+                        com.SetParam(cpuColor, mid, end, 0, 4, 1, time, (bool)timerSwitch.IsChecked, (bool)MPCSwitch.IsChecked, (bool)PreSearchSwitch.IsChecked);
                         break;
                 }
             }
             MainBoard.Reset();
-            ResetGame();
         }
 
         private int OppColor(int color)
@@ -403,17 +407,9 @@ namespace ReversiGUI.Games
                 if (color == Const.BLACK)
                 {
                     LogWindow.LogBlack("Put:CPUが着手しました(" + (char)(x + 'A' - 1) + ", " + (y) + ")");
-                    if ((bool)comInfoSwitch.IsChecked)
-                    {
-                        LogWindow.LogBlack("予想石差:" + value + "    思考時間:" + String.Format("{0:f}",time.TotalSeconds) + "[秒]");
-                    }
                 }
                 else
                 {
-                    if ((bool)comInfoSwitch.IsChecked)
-                    {
-                        LogWindow.LogWhite("予想石差:" + value + "    思考時間:" + String.Format("{0:f}", time.TotalSeconds) + "[秒]");
-                    }
                     LogWindow.LogWhite("Put:CPUが着手しました(" + (char)(x + 'A' - 1) + ", " + (y) + ")");
                 }
             }
